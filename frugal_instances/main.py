@@ -1,4 +1,5 @@
-import frugal_instances.aws
+from aws import get_instance_types, get_instance_price_history
+from models import InstanceType
 
 def main():
 

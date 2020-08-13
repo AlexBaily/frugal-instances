@@ -1,6 +1,6 @@
 import boto3
 from datetime import datetime, timedelta
-from frugal_instances.models import InstanceType
+from models import InstanceType
 '''
 get_instance_types
 
@@ -32,7 +32,7 @@ def get_instance_price_history(instance):
     filters = [{"Name": "product-description", "Values":["Linux/UNIX", "Linux/UNIX (Amazon VPC)"]}]
     #Only grab info from the past 2 days.
     starttime = datetime.today() - timedelta(days=2)
-    response = ec2.describe_spot_price_history(Filters=filter, InstanceTypes=[instance.name],
+    response = ec2.describe_spot_price_history(Filters=filters, InstanceTypes=[instance.name],
                                                 StartTime=starttime)
     while True:
         for price_point in response['SpotPriceHistory']: 
