@@ -47,11 +47,12 @@ def get_instance_price_history(instance):
     return
 
 def get_most_expensive_instance(instances):
-    most_expensive_instance = InstanceType
+    most_expensive_instance = list(instances)[0]
     for instance in instances:
-        if instance.max_price > most_expensive_instance:
-            most_expensive = instance
+        if instance.max_price > most_expensive_instance.max_price:
+            most_expensive_instance = instance
     return most_expensive_instance
+
 
 
 '''
