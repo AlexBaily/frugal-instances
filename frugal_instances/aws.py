@@ -26,12 +26,12 @@ def get_instance_types():
     return instance_types
 
 
-def get_instance_price_history(instance):
+def get_instance_price_history(instance, days):
     ec2 = boto3.client('ec2')
     #Set the filters, we only want Linux Instance types.
     filters = [{"Name": "product-description", "Values":["Linux/UNIX", "Linux/UNIX (Amazon VPC)"]}]
     #Only grab info from the past 2 days.
-    starttime = datetime.today() - timedelta(days=2)
+    starttime = datetime.today() - timedelta(days=days)
     response = ec2.describe_spot_price_history(Filters=filters, InstanceTypes=[instance.name],
                                                 StartTime=starttime)
     while True:
@@ -45,6 +45,15 @@ def get_instance_price_history(instance):
             instance.calc_avg()
             break 
     return
+
+def get_most_expensive_instance(instances):
+    most_expensive_instance = list(instances)[0]
+    for instance in instances:
+        if instance.max_price > most_expensive_instance.max_price:
+            most_expensive_instance = instance
+    return most_expensive_instance
+
+
 
 '''
 def calculate_best_instance(instances, metric):
