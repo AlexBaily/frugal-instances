@@ -54,9 +54,10 @@ def get_most_expensive_instance(instances):
     return most_expensive_instance
 
 
-
-'''
-def calculate_best_instance(instances, metric):
-    lowest_cost = 0
+def get_cheapest_instance_metric(instances):
+    cheapest_instance = list(instances)[0]
     for instance in instances:
-'''        
+        if instance.metric_cost < cheapest_instance.metric_cost:
+            cheapest_instance = instance
+    return cheapest_instance
+
