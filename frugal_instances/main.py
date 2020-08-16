@@ -10,7 +10,7 @@ def main():
     instances = get_instance_types()
     instanceList = list(instances)
     for instance in instanceList:
-        get_instance_price_history(instance, 10)
+        get_instance_price_history(instance, 20)
         instance.calculate_metric_cost("ram")
     most_expensive = get_most_expensive_instance(instanceList)
     cheapest_instance = get_cheapest_instance_metric(instanceList)
