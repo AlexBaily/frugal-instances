@@ -14,10 +14,11 @@ def main():
     print("name: ", cheapest_instance.name, " RAM: ", cheapest_instance.ram_gb, 
             " avg_price: ", cheapest_instance.avg_price, 
             " metric_cost: ", cheapest_instance.metric_cost)
-    sorted(instanceList, key=lambda x: x.metric_cost, reverse=False)
+    instanceList.sort(key=lambda x: x.metric_cost, reverse=False)
     #Print the top ten cheapest instances based on $ cost per GB of RAM.
     for x in range(10):
-        print(instanceList[x].name, " ", instanceList[x].ram_gb, " ", instanceList[x].avg_price)
+        print(instanceList[x].name, instanceList[x].ram_gb, instanceList[x].avg_price,
+                instanceList[x].max_price)
 
 
 
