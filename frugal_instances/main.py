@@ -1,4 +1,4 @@
-from aws import get_instance_types, get_instance_price_history, get_most_expensive_instance
+from aws import get_instance_types, get_instance_price_history, get_most_expensive_instance, get_cheapest_instance_metric
 from models import InstanceType
 
 def main():
