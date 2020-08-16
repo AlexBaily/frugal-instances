@@ -21,6 +21,6 @@ class InstanceType:
             self.max_price = price
     def calculate_metric_cost(self, metric):
         if metric == "ram":
-            self.instance.metric_cost = self.instance.avg_price /  self.instance.ram_gb
+            self.metric_cost = self.avg_price /  self.ram_gb
         else:
-            self.instance.metric_cost = self.instance.avg_price /  self.instance.cpu
+            self.metric_cost = self.avg_price /  self.cpu
