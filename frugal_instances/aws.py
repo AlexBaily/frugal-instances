@@ -49,7 +49,7 @@ def get_instance_price_history(instance, days):
     return
 
 def get_most_expensive_instance(instances):
-    most_expensive_instance = list(instances)[0]
+    most_expensive_instance = instances[0]
     for instance in instances:
         if instance.max_price > most_expensive_instance.max_price:
             most_expensive_instance = instance
@@ -57,9 +57,8 @@ def get_most_expensive_instance(instances):
 
 
 def get_cheapest_instance_metric(instances):
-    cheapest_instance = list(instances)[0]
+    cheapest_instance = instances[0]
     for instance in instances:
         if instance.metric_cost < cheapest_instance.metric_cost:
             cheapest_instance = instance
     return cheapest_instance
-
