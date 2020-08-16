@@ -16,8 +16,10 @@ def get_instance_types():
     while True:
         #Run through instances, instantiate an InstanceType and then add to our set.
         for instance in response['InstanceTypes']: 
-            instance_types.add(InstanceType(name=instance['InstanceType'], cpu=instance['VCpuInfo']['DefaultCores'],
-                                    ram_gb=(instance['MemoryInfo']['SizeInMiB'] / 1024)))
+            #Only grab instances with more than 2GB of RAM.
+            if instance['MemoryInfo']['SizeInMiB'] > 2048:
+                instance_types.add(InstanceType(name=instance['InstanceType'], cpu=instance['VCpuInfo']['DefaultCores'],
+                                        ram_gb=(instance['MemoryInfo']['SizeInMiB'] / 1024)))
         #Check if there is a NextToken to see if we need to deal with pagination.
         if 'NextToken' in response:
             response =  ec2.describe_instance_types(Filters=filters, NextToken=response['NextToken'])
