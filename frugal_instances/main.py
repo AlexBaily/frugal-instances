@@ -1,8 +1,12 @@
 from aws import get_instance_types, get_instance_price_history, get_most_expensive_instance, get_cheapest_instance_metric
 from models import InstanceType
 
-def main():
+def print_top_ten(instanceList):
+    for x in range(10):
+        print(instanceList[x].name, instanceList[x].ram_gb, instanceList[x].avg_price,
+                instanceList[x].max_price)
 
+def main():
     instances = get_instance_types()
     instanceList = list(instances)
     for instance in instanceList:
@@ -16,9 +20,7 @@ def main():
             " metric_cost: ", cheapest_instance.metric_cost)
     instanceList.sort(key=lambda x: x.metric_cost, reverse=False)
     #Print the top ten cheapest instances based on $ cost per GB of RAM.
-    for x in range(10):
-        print(instanceList[x].name, instanceList[x].ram_gb, instanceList[x].avg_price,
-                instanceList[x].max_price)
+    print_top_ten(instanceList)
 
 
 
