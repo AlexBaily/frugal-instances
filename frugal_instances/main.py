@@ -11,7 +11,7 @@ def get_top_twenty_json(instanceList):
     instance_json = {"instances":[]}
     for x in range(20):
         instance_json['instances'].append(instanceList[x].to_json())
-    return instance_json
+    return json.dumps(instance_json)
 
 
 def main():
