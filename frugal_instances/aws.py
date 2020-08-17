@@ -62,3 +62,30 @@ def get_cheapest_instance_metric(instances):
         if instance.metric_cost < cheapest_instance.metric_cost:
             cheapest_instance = instance
     return cheapest_instance
+
+
+'''
+get_spot_reliability_data 
+
+Returns a JSON of data on the realibility of spot instances.
+
+    rates = {
+        0: "<5%",
+        1: "5-10%",
+        2: "10-15%",
+        3: "15-20%",
+        4: ">20%"
+    }
+
+'''
+def get_spot_reliability_data(region):
+    import requests
+    import json
+    requestsUrl = "https://spot-bid-advisor.s3.amazonaws.com/spot-advisor-data.json"
+    try:
+        response = requests.get(requestsUrl)
+    except requests.exceptions.ConnectionError:
+        return
+    responseJson = response.json()
+    spot_advisor = responseJson['spot_advisor'][region]['Linux']
+    return spot_advisor

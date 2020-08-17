@@ -10,6 +10,7 @@ class InstanceType:
         self.max_price = 0.0
         self.calc_cost = sys.maxsize
         self.metric_cost = sys.maxsize
+        self.chance_of_term = 5
     def calc_avg(self):
         if sum(self.prices) > 0:
             self.avg_price = (sum(self.prices) / len(self.prices))
