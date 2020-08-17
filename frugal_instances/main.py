@@ -25,7 +25,7 @@ def main():
             " avg_price: ", cheapest_instance.avg_price, 
             " metric_cost: ", cheapest_instance.metric_cost)
     #instanceList.sort(key=lambda x: x.metric_cost, reverse=False)
-    best_instances = sorted((i for i in instanceList if i.chance_of_term <= 1),
+    best_instances = sorted((i for i in instanceList if i.chance_of_term == 0),
                             key=lambda x: x.metric_cost, reverse=False)
     #Print the top ten cheapest instances based on $ cost per GB of RAM.
     print_top_ten(best_instances)
