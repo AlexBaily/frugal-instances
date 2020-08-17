@@ -10,7 +10,7 @@ def print_top_ten(instanceList):
 def get_top_twenty_json(instanceList):
     instance_json = {"instances":[]}
     for x in range(20):
-        instance_json['instances'].append(x.to_json())
+        instance_json['instances'].append(instanceList[x].to_json())
     return instance_json
 
 
