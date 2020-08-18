@@ -7,6 +7,13 @@ def print_top_ten(instanceList):
         print(instanceList[x].name, instanceList[x].ram_gb, instanceList[x].avg_price,
                 instanceList[x].max_price)
 
+def get_top_twenty_json(instanceList):
+    instance_json = {"instances":[]}
+    for x in range(20):
+        instance_json['instances'].append(instanceList[x].to_json())
+    return json.dumps(instance_json)
+
+
 def main():
     instances = get_instance_types()
     instanceList = list(instances)
@@ -28,7 +35,8 @@ def main():
     best_instances = sorted((i for i in instanceList if i.chance_of_term == 0),
                             key=lambda x: x.metric_cost, reverse=False)
     #Print the top ten cheapest instances based on $ cost per GB of RAM.
-    print_top_ten(best_instances)
+    #print_top_ten(best_instances)
+    print(get_top_twenty_json(best_instances))
 
 
 
