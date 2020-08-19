@@ -30,7 +30,7 @@ def main(metric=None):
     reliabilityJson = get_spot_reliability_data('eu-west-1')
     for instance in instanceList:
         get_instance_price_history(instance, 20)
-        instance.calculate_metric_cost('ram')
+        instance.calculate_metric_cost(metric)
         try: 
             instance.chance_of_term = reliabilityJson[instance.name]['r']
         except KeyError:
