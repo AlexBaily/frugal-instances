@@ -11,13 +11,15 @@ def get_instance_types():
     ec2 = boto3.client('ec2')
     instance_types = set()
     #Filter for the API query. We don't want bare-metal instances.
-    filters = [{"Name": "bare-metal","Values":["false"]}]
+    filters = [{"Name": "bare-metal","Values":["false"]},
+        {"Name": "current-generation","Values":["true"]}]
     response = ec2.describe_instance_types(Filters=filters)
     while True:
         #Run through instances, instantiate an InstanceType and then add to our set.
         for instance in response['InstanceTypes']: 
             #Only grab instances with more than 2GB of RAM.
-            if instance['MemoryInfo']['SizeInMiB'] > 2048:
+            if ((instance['MemoryInfo']['SizeInMiB'] > 2048) and 
+                ('x86_64' in instance['ProcessorInfo']['SupportedArchitectures'])):
                 instance_types.add(InstanceType(name=instance['InstanceType'], cpu=instance['VCpuInfo']['DefaultCores'],
                                         ram_gb=(instance['MemoryInfo']['SizeInMiB'] / 1024)))
         #Check if there is a NextToken to see if we need to deal with pagination.
