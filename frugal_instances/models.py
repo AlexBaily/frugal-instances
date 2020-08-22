@@ -27,6 +27,11 @@ class InstanceType:
             self.metric_cost = self.avg_price /  self.ram_gb
         else:
             self.metric_cost = self.avg_price /  self.cpu
+    def calculate_ratio(self, ratio):
+        if self.avg_price <= 0:
+            return
+        else:
+            cpu, ram = ratio.split(':')
     def get_chance_string(self):
         rates = {
             0: "<5%",
