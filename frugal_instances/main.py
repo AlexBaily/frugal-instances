@@ -22,21 +22,26 @@ def parse_args():
         description='Process spot instances and return the cheapest.')
     parser.add_argument('--metric', type=str, default='ram',
             help='Which metric do we want to use, cpu or ram')
+    parser.add_argument('--ratio', type=str, default=None,
+            help='Instead of a metric you can have a ratio' +
+            'e.g. 1:4 CPU:RAM.')
     
     return parser.parse_args()
 
-def main(metric=None, to_print=None):
+def main(metric=None, to_print=None, ratio=None):
     instances = get_instance_types()
     instanceList = list(instances)
     reliabilityJson = get_spot_reliability_data('eu-west-1')
     for instance in instanceList:
         get_instance_price_history(instance, 20)
-        instance.calculate_metric_cost(metric)
+        if ratio == None:
+            instance.calculate_metric_cost(metric)
+        else: 
+            instance.calculate_ratio(ratio)
         try: 
             instance.chance_of_term = reliabilityJson[instance.name]['r']
         except KeyError:
             logging.info('error: instance type not found' + instance.name)
-            
     if to_print == 'most-expensive':
         most_expensive = get_most_expensive_instance(instanceList)
         print("name: ", most_expensive.name, " RAM: ", most_expensive.ram_gb, 
@@ -60,6 +65,6 @@ def main(metric=None, to_print=None):
 
 if __name__ == '__main__':
     args = parse_args()
-    main(metric=args.metric)
+    main(metric=args.metric,ratio=args.ratio)
     
 

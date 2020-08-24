@@ -1,4 +1,5 @@
 import sys
+import math
 
 class InstanceType:
     def __init__(self, name, cpu, ram_gb):
@@ -32,6 +33,9 @@ class InstanceType:
             return
         else:
             cpu, ram = ratio.split(':')
+            num_of_cont = min((self.cpu / int(cpu)), (self.ram_gb / int(ram)))
+            if num_of_cont > 0:
+                self.metric_cost = self.avg_price / num_of_cont
     def get_chance_string(self):
         rates = {
             0: "<5%",
